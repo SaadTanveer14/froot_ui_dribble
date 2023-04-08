@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
 
           home: HomePage(),
+          
         
         );
       },

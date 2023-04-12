@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:froot_ui/details.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -116,40 +118,45 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context,index){
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: colorsPrimary[index],
-                          borderRadius: BorderRadius.all(Radius.circular(25))
-                        ),
-                        height: 0.4.sh,
-                        width: 0.6.sw,
-                        child: Stack(
-                          children: [
-                            index==0?
-                            Image.asset(link[index]):
-
-                            Padding(
-                              padding: const EdgeInsets.only(top:30.0).h,
-                              child: Image.asset(link[index]),
-                            ),
-
-
-                            Positioned(
-                              bottom: 0,
-                              child: Padding(
-                                padding: EdgeInsets.only(left:25.0.w, bottom: 25.h),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(country[index], style: GoogleFonts.poppins(color: colorsSecondary[index], fontWeight: FontWeight.bold, letterSpacing: 2),),
-                                    Text(fruits[index], style: GoogleFonts.poppins(fontSize:26.sp, fontWeight: FontWeight.bold  ),),
-                                    Text(stores[index].toString() + " available stores nearby",style: GoogleFonts.poppins(color: Color(0xFF9D8A8B), fontWeight: FontWeight.bold  ),),
-                                                          
-                                ],),
+                      return GestureDetector(
+                        onTap: (){
+                          Get.to( ()=> MyHomePage());
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: colorsPrimary[index],
+                            borderRadius: BorderRadius.all(Radius.circular(25))
+                          ),
+                          height: 0.4.sh,
+                          width: 0.6.sw,
+                          child: Stack(
+                            children: [
+                              index==0?
+                              Image.asset(link[index]):
+                      
+                              Padding(
+                                padding: const EdgeInsets.only(top:30.0).h,
+                                child: Image.asset(link[index]),
                               ),
-                            )
-                            
-                          ],
+                      
+                      
+                              Positioned(
+                                bottom: 0,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left:25.0.w, bottom: 25.h),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(country[index], style: GoogleFonts.poppins(color: colorsSecondary[index], fontWeight: FontWeight.bold, letterSpacing: 2),),
+                                      Text(fruits[index], style: GoogleFonts.poppins(fontSize:26.sp, fontWeight: FontWeight.bold  ),),
+                                      Text(stores[index].toString() + " available stores nearby",style: GoogleFonts.poppins(color: Color(0xFF9D8A8B), fontWeight: FontWeight.bold  ),),
+                                                            
+                                  ],),
+                                ),
+                              )
+                              
+                            ],
+                          ),
                         ),
                       );
                     }, 

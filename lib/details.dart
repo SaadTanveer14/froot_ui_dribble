@@ -229,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double initialSheetHeight = screenHeight * 0.3; // set initial sheet height to 50% of screen height
+    double initialSheetHeight = screenHeight * 0.5; // set initial sheet height to 50% of screen height
     double expandedSheetHeight = screenHeight * 0.7; // set expanded sheet height to 70% of screen height
     return Scaffold(
       
@@ -395,13 +395,62 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             ],
           ),
 
-          _isExpanded ?
-          Text(_isExpanded.toString())
-          :
-          Text(_isExpanded.toString()),
+
           // Your UI elements
-          Expanded(
-            child: GestureDetector(
+          // Expanded(
+          //   child: GestureDetector(
+          //     onVerticalDragUpdate: (details) {
+          //       print(_isExpanded);
+          //       if (details.delta.dy > 0 && _isExpanded) {
+          //         // swiping down
+          //         setState(() {
+          //           _isExpanded = false;
+          //         });
+          //         _controller.reverse();
+          //       } else if (details.delta.dy < 0 && !_isExpanded) {
+          //         // swiping up
+          //         setState(() {
+          //           _isExpanded = true;
+          //         });
+          //         _controller.forward();
+          //       }
+          //     },
+          //     child: Stack(
+          //       children: [
+                
+          //         Align(
+          //           alignment: Alignment.bottomCenter,
+          //           child: GestureDetector(
+          //             onTap: () {
+          //               if (_isExpanded) {
+          //                 _controller.reverse();
+          //                 setState(() {
+          //                   _isExpanded = false;
+          //                 });
+          //               } else {
+          //                 _controller.forward();
+          //                 setState(() {
+          //                   _isExpanded = true;
+          //                 });
+          //               }
+          //             },
+          //             child: Container(
+          //               height: 50.0,
+          //               width: double.infinity,
+          //               color: Colors.grey,
+          //               child: Center(
+          //                 child: Icon(Icons.keyboard_arrow_up),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+
+          
+          GestureDetector(
               onVerticalDragUpdate: (details) {
                 print(_isExpanded);
                 if (details.delta.dy > 0 && _isExpanded) {
@@ -418,106 +467,43 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                   _controller.forward();
                 }
               },
-              child: Stack(
-                children: [
-                
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_isExpanded) {
-                          _controller.reverse();
-                          setState(() {
-                            _isExpanded = false;
-                          });
-                        } else {
-                          _controller.forward();
-                          setState(() {
-                            _isExpanded = true;
-                          });
-                        }
-                      },
-                      child: Container(
-                        height: 50.0,
-                        width: double.infinity,
-                        color: Colors.grey,
-                        child: Center(
-                          child: Icon(Icons.keyboard_arrow_up),
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return Container(
+                  height: initialSheetHeight +
+                      (_controller.value * (expandedSheetHeight - initialSheetHeight)),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(0, 255, 255, 255),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20.0),
+                    ),
+          
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // Your UI elements
+                        SizedBox(height: 10.0),
+                        Text('Draggable Sheet Content'),
+                        SizedBox(height: 10.0),
+                        Container(
+                          height: 100.0,
+                          color: Colors.grey,
+                          child: Center(child: Column(
+                            children: [
+                              Text('Sheet Content'),
+                              
+          
+                            ],
+                          )),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
-          ),
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Container(
-                height: initialSheetHeight +
-                    (_controller.value * (expandedSheetHeight - initialSheetHeight)),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20.0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      // Your UI elements
-                      SizedBox(height: 10.0),
-                      Text('Draggable Sheet Content'),
-                      SizedBox(height: 10.0),
-                      Container(
-                        height: 100.0,
-                        color: Colors.grey,
-                        child: Center(child: Column(
-                          children: [
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-                            Text('Sheet Content'),
-
-                          ],
-                        )),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
           ),
         ],
       ),
